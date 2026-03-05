@@ -10,7 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@imagekit/javascript": "^5.2.2",
+    "@imagekit/nodejs": "^7.3.0",
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mongoose": "^9.2.4"
+    "form-data": "^4.0.5",
+    "mongoose": "^9.2.4",
+    "multer": "^2.1.1",
+    "node-fetch": "^2.7.0"
   }
 }
