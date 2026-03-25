@@ -153,6 +153,82 @@ npm run lint             # Run ESLint
 4. **View Posts**
    - Navigate to "View Posts" to see all gallery items
 
+## 🌐 Production Deployment
+
+### Recommended Architecture
+
+Deploy **frontend on Vercel** and **backend on Render.com**:
+
+```
+Frontend (Vercel)  ←→  Backend (Render)
+https://your-app.vercel.app    https://backend-api.onrender.com
+```
+
+### Quick Deployment (Render + Vercel)
+
+#### 1️⃣ Deploy Backend to Render (Free Tier)
+
+1. Go to [render.com](https://render.com)
+2. Click **New** → **Web Service**
+3. Connect your GitHub repository
+4. Set configuration:
+   - **Build Command:** `npm install`
+   - **Start Command:** `node Backend/server.js`
+   - **Plan:** Free (unlimited free services)
+
+5. Add **Environment Variables:**
+   ```
+   MONGODB_URI=mongodb+srv://...
+   IMAGEKIT_PUBLIC_KEY=...
+   IMAGEKIT_PRIVATE_KEY=...
+   IMAGEKIT_URL_ENDPOINT=...
+   FRONTEND_URL=https://your-app.vercel.app
+   ```
+
+6. Click **Create Web Service**
+7. Copy the generated URL (e.g., `https://postcard-gallery-api.onrender.com`)
+
+#### 2️⃣ Deploy Frontend to Vercel
+
+1. Go to [vercel.com](https://vercel.com)
+2. Import your GitHub repository
+3. Add **Environment Variable:**
+   ```
+   VITE_API_URL=https://postcard-gallery-api.onrender.com
+   ```
+4. Click **Deploy**
+
+#### 3️⃣ Verify the Deployment
+
+1. Open your Vercel URL in browser
+2. Open **DevTools** (F12) → **Network** tab
+3. Try creating a post or viewing posts
+4. Check API requests show your Render backend URL (not `localhost`)
+5. Response status should be `200`, not `404`
+
+### Auto-Deploy Configuration
+
+**Render & Vercel auto-deploy automatically:**
+- Push to GitHub main branch
+- Services auto-detect changes
+- No manual deployment needed
+- Check logs for build progress
+
+### Troubleshooting Deployment
+
+| Issue | Solution |
+|-------|----------|
+| 404 NOT_FOUND | Set correct `VITE_API_URL` in Vercel env vars |
+| Build fails | Run `npm install` locally and push `package-lock.json` |
+| Services sleep | Upgrade to paid tier or use alternate service |
+| CORS errors | Verify `FRONTEND_URL` set in Render backend env vars |
+
+### Alternative Deployment Options
+
+- **Both on Vercel:** Use serverless functions (see [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md))
+- **Detailed Render Guide:** See [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md)
+- **More options:** Heroku, Fly.io, AWS, Google Cloud, etc.
+
 ## 🔒 Security & Best Practices
 
 - Image uploads are validated and processed through ImageKit

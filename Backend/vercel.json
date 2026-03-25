@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npm install",
+  "env": {
+    "MONGODB_URI": "@mongodb_uri",
+    "IMAGEKIT_PUBLIC_KEY": "@imagekit_public_key",
+    "IMAGEKIT_PRIVATE_KEY": "@imagekit_private_key",
+    "IMAGEKIT_URL_ENDPOINT": "@imagekit_url_endpoint"
+  },
+  "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
+}
